@@ -1,1 +1,3 @@
 # AutomationIntake
+
+This project is to create a web application for intaking automation projects.  The intake application developed in python will allow users to input a process, clarify the process with assistance from chatgpt, then create mermaid.js diagram of the process, provide a markdown document of the high level process, then provide an analysis of what steps can be taken to automate the process. 
