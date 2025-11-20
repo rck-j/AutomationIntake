@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Automation Intake</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+    .message { padding: 0.75rem; border-radius: 8px; margin-bottom: 0.5rem; }
+    .assistant { background-color: #eef2ff; }
+    .user { background-color: #e5f6e0; }
+    .assessment { border: 1px solid #cbd5e1; border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+    form { margin-top: 1rem; display: flex; gap: 0.5rem; }
+    textarea { flex: 1; resize: vertical; min-height: 80px; }
+    button { padding: 0.5rem 1rem; }
+    .visually-hidden { position: absolute; left: -10000px; }
+  </style>
+</head>
+<body>
+  <h1>Automation Intake</h1>
+  <p>Share your process description and the assistant will gather details before summarizing an automation assessment.</p>
+
+  <div id="conversation">
+    {% for entry in conversation %}
+      <div class="message {{ entry.role }}">
+        <strong>{{ entry.role.title() }}:</strong> {{ entry.content }}
+      </div>
+    {% endfor %}
+  </div>
+
+  <form method="post">
+    <label for="user_input" class="visually-hidden">Your response</label>
+    <textarea id="user_input" name="user_input" placeholder="Describe your process or answer the assistant's questions" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+
+  {% if assessment %}
+    <div class="assessment">
+      <h2>Automation Assessment</h2>
+      <pre>{{ assessment }}</pre>
+    </div>
+  {% endif %}
+</body>
+</html>
