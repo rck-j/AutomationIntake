@@ -9,6 +9,24 @@ bp = Blueprint("main", __name__)
 workflow = AutomationWorkflow()
 
 
+@bp.route("/auth/login", methods=["GET", "POST"])
+def login() -> str:
+    """Render a simple login form and validate credentials."""
+    error = None
+
+    if request.method == "POST":
+        email = request.form.get("email", "").strip()
+        password = request.form.get("password", "").strip()
+
+        if not email or not password:
+            error = "Email and password are required to sign in."
+        else:
+            session["user"] = {"email": email}
+            return redirect(url_for("main.intake"))
+
+    return render_template("login.html", error=error), (400 if error else 200)
+
+
 @bp.route("/", methods=["GET", "POST"])
 def intake() -> str:
     """Render the intake conversation and process user submissions."""
