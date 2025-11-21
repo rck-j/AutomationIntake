@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sign in</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 480px; margin: 2rem auto; padding: 0 1rem; }
+    form { display: flex; flex-direction: column; gap: 0.75rem; }
+    label { font-weight: 600; }
+    input { padding: 0.5rem; font-size: 1rem; }
+    button { padding: 0.75rem; font-size: 1rem; }
+    .error { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 0.75rem; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Sign in</h1>
+  {% if error %}
+    <div class="error" role="alert">{{ error }}</div>
+  {% endif %}
+  <form method="post" action="{{ url_for('main.login') }}">
+    <div>
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email" required>
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+    </div>
+    <button type="submit">Continue</button>
+  </form>
+</body>
+</html>
