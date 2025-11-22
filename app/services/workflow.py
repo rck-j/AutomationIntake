@@ -16,7 +16,7 @@ class TurnResponse:
 class AutomationLLM(Protocol):
     """Interface for generating LLM replies for the intake flow."""
 
-    def respond(self, history: Iterable[dict[str, str]]) -> TurnResponse:  # pragma: no cover - protocol
+    def respond(self, history: Iterable[dict[str, str]], context: dict | None = None) -> TurnResponse:  # pragma: no cover - protocol
         ...
 
 
@@ -30,7 +30,7 @@ class RuleBasedLLM:
             "Do you have any constraints or compliance considerations I should know about?",
         ]
 
-    def respond(self, history: Iterable[dict[str, str]]) -> TurnResponse:
+    def respond(self, history: Iterable[dict[str, str]], context: dict | None = None) -> TurnResponse:
         """Return a clarifying prompt or a lightweight assessment."""
         user_messages = [entry for entry in history if entry.get("role") == "user"]
         if len(user_messages) < len(self.prompts):
@@ -54,6 +54,6 @@ class AutomationWorkflow:
     def __init__(self, llm: AutomationLLM | None = None) -> None:
         self.llm = llm or RuleBasedLLM()
 
-    def next_turn(self, history: list[dict[str, str]]) -> TurnResponse:
+    def next_turn(self, history: list[dict[str, str]], context: dict | None = None) -> TurnResponse:
         """Send the conversation to the LLM client and return its reply."""
-        return self.llm.respond(history)
+        return self.llm.respond(history, context)

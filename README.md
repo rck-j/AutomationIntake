@@ -1,6 +1,6 @@
 # AutomationIntake
 
-This project is to create a web application for intaking automation projects. The intake application developed in python will allow users to input a process, clarify the process with assistance from chatgpt, then create mermaid.js diagram of the process, provide a markdown document of the high level process, then provide an analysis of what steps can be taken to automate the process.
+This project is a web application for intaking automation ideas. The application, developed in Python using Flask, allows users to describe a process they'd like to automate. It then uses Google's Gemini API to ask clarifying questions and provide an initial automation assessment.
 
 ## Getting started
 
@@ -17,10 +17,18 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-3. Run the intake UI in debug mode.
+3. Set up your environment variables.
+
+Create a `.env` file in the project root and add your Gemini API key:
+
+```
+GEMINI_API_KEY=your_api_key_here
+```
+
+4. Run the intake UI in debug mode.
 
 ```bash
 flask --app app.main run --debug
 ```
 
-The current UI provides a conversation-style intake experience. You can describe a process, answer clarifying questions from the assistant, and receive a lightweight automation assessment once enough detail has been collected.
+The UI provides a conversation-style intake experience. You can describe a process, answer clarifying questions from the assistant, and receive a lightweight automation assessment once enough detail has been collected.
